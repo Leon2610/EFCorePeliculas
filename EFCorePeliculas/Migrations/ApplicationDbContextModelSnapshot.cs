@@ -32,11 +32,12 @@ namespace EFCorePeliculas.Migrations
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
+                        .HasColumnType("nvarchar(150)")
+                        .HasColumnName("NombreGenero");
 
                     b.HasKey("Identificador");
 
-                    b.ToTable("Generos");
+                    b.ToTable("TablaGeneros", "Peliculas");
                 });
 #pragma warning restore 612, 618
         }

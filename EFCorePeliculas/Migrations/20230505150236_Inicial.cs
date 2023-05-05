@@ -10,17 +10,21 @@ namespace EFCorePeliculas.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.EnsureSchema(
+                name: "Peliculas");
+
             migrationBuilder.CreateTable(
-                name: "Generos",
+                name: "TablaGeneros",
+                schema: "Peliculas",
                 columns: table => new
                 {
                     Identificador = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nombre = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false)
+                    NombreGenero = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Generos", x => x.Identificador);
+                    table.PrimaryKey("PK_TablaGeneros", x => x.Identificador);
                 });
         }
 
@@ -28,7 +32,8 @@ namespace EFCorePeliculas.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Generos");
+                name: "TablaGeneros",
+                schema: "Peliculas");
         }
     }
 }
