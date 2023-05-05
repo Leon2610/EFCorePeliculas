@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFCorePeliculas.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230505151547_Inicial")]
-    partial class Inicial
+    [Migration("20230505153155_Cines")]
+    partial class Cines
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -47,6 +47,28 @@ namespace EFCorePeliculas.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Actores");
+                });
+
+            modelBuilder.Entity("EFCorePeliculas.Entidades.Cine", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<decimal>("Precio")
+                        .HasPrecision(9, 2)
+                        .HasColumnType("decimal(9,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Cines");
                 });
 
             modelBuilder.Entity("EFCorePeliculas.Entidades.Genero", b =>
