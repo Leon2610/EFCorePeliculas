@@ -9,6 +9,15 @@ namespace EFCorePeliculas
         {
         }
 
+        //Este es el metodo del API Fluente, permite configurar las entidades y propiedades
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            //De esta manera se indica que el identificador es una llave primaria
+            modelBuilder.Entity<Genero>().HasKey(prop => prop.Identificador);
+        }
+
         public DbSet<Genero> Generos { get; set; }
     }
 }
