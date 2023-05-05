@@ -17,12 +17,18 @@ namespace EFCorePeliculas
             //De esta manera se indica que el identificador es una llave primaria
             modelBuilder.Entity<Genero>().HasKey(prop => prop.Identificador);
             modelBuilder.Entity<Genero>().Property(prop => prop.Nombre)
-                .HasColumnName("NombreGenero")
                 .HasMaxLength(150)
                 .IsRequired();
-            modelBuilder.Entity<Genero>().ToTable(name: "TablaGeneros", schema: "Peliculas");
+
+            modelBuilder.Entity<Actor>().Property(prop => prop.Nombre)
+                .HasMaxLength(150)
+                .IsRequired();
+
+            modelBuilder.Entity<Actor>().Property(prop => prop.FechaNacimiento)
+                .HasColumnType("date");
         }
 
         public DbSet<Genero> Generos { get; set; }
+        public DbSet<Actor> Actores { get; set; }
     }
 }
