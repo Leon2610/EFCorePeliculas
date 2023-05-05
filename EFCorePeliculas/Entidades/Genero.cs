@@ -8,6 +8,7 @@ namespace EFCorePeliculas.Entidades
         public int Identificador { get; set; }
         //[StringLength(150)]
         //[MaxLength(150)]
+        //[Required]
         public string Nombre { get; set; }
     }
 }

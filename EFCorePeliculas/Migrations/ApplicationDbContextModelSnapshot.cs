@@ -30,6 +30,7 @@ namespace EFCorePeliculas.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Identificador"));
 
                     b.Property<string>("Nombre")
+                        .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 

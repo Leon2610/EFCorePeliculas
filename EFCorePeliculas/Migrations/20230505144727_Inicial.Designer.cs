@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFCorePeliculas.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230505144114_Inicial")]
+    [Migration("20230505144727_Inicial")]
     partial class Inicial
     {
         /// <inheritdoc />
@@ -33,6 +33,7 @@ namespace EFCorePeliculas.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Identificador"));
 
                     b.Property<string>("Nombre")
+                        .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
