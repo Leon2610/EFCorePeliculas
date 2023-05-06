@@ -31,7 +31,7 @@ namespace EFCorePeliculas
                 .HasMaxLength(150)
                 .IsRequired();
 
-            modelBuilder.Entity<Cine>().Property(prop => prop.Precio)
+            modelBuilder.Entity<SalaDeCine>().Property(prop => prop.Precio)
                 .HasPrecision(precision: 9, scale: 2);
 
             modelBuilder.Entity<Pelicula>().Property(prop => prop.Titulo)
@@ -60,5 +60,6 @@ namespace EFCorePeliculas
         public DbSet<Cine> Cines { get; set; }
         public DbSet<Pelicula> Peliculas { get; set; }
         public DbSet<CineOferta> CineOfertas { get; set; }
+        public DbSet<SalaDeCine> SalasDeCine { get; set; }
     }
 }
