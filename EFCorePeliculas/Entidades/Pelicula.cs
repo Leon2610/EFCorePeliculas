@@ -12,5 +12,6 @@ namespace EFCorePeliculas.Entidades
         public string PosterURL { get; set; }
         public HashSet<Genero> Generos { get; set; }
         public HashSet<SalaDeCine> SalaDeCines { get; set; }
+        public HashSet<PeliculaActor> PeliculaActores { get; set; }
     }
 }
