@@ -15,7 +15,7 @@ namespace EFCorePeliculas.Migrations
                 table: "SalasDeCine",
                 type: "int",
                 nullable: false,
-                defaultValue: 0);
+                defaultValue: 1);
         }
 
         /// <inheritdoc />

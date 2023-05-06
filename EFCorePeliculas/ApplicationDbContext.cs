@@ -34,6 +34,9 @@ namespace EFCorePeliculas
             modelBuilder.Entity<SalaDeCine>().Property(prop => prop.Precio)
                 .HasPrecision(precision: 9, scale: 2);
 
+            modelBuilder.Entity<SalaDeCine>().Property(prop => prop.TipoSalaDeCine)
+                .HasDefaultValue(TipoSalaDeCine.DosDimensiones);
+
             modelBuilder.Entity<Pelicula>().Property(prop => prop.Titulo)
                 .HasMaxLength(250)
                 .IsRequired();

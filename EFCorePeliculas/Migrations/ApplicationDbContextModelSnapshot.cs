@@ -160,7 +160,9 @@ namespace EFCorePeliculas.Migrations
                         .HasColumnType("decimal(9,2)");
 
                     b.Property<int>("TipoSalaDeCine")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(1);
 
                     b.HasKey("Id");
 
