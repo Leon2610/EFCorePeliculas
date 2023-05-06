@@ -44,11 +44,21 @@ namespace EFCorePeliculas
             modelBuilder.Entity<Pelicula>().Property(prop => prop.PosterURL)
                 .HasMaxLength(500)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<CineOferta>().Property(prop => prop.PorcentajeDescuento)
+                .HasPrecision(precision: 5, scale: 2);
+
+            modelBuilder.Entity<CineOferta>().Property(prop => prop.FechaInicio)
+                .HasColumnType("date");
+
+            modelBuilder.Entity<CineOferta>().Property(prop => prop.FechaFin)
+                .HasColumnType("date");
         }
 
         public DbSet<Genero> Generos { get; set; }
         public DbSet<Actor> Actores { get; set; }
         public DbSet<Cine> Cines { get; set; }
         public DbSet<Pelicula> Peliculas { get; set; }
+        public DbSet<CineOferta> CineOfertas { get; set; }
     }
 }

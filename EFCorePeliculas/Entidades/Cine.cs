@@ -10,5 +10,6 @@ namespace EFCorePeliculas.Entidades
         //[Precision(precision:9, scale: 2)]
         public decimal Precio { get; set; }
         public Point Ubicacion { get; set; }
+        public CineOferta CineOferta { get; set; }
     }
 }
