@@ -9,6 +9,11 @@ namespace EFCorePeliculas
         {
         }
 
+        protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
+        {
+            configurationBuilder.Properties<DateTime>().HaveColumnType("date");
+        }
+
         //Este es el metodo del API Fluente, permite configurar las entidades y propiedades
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -24,9 +29,6 @@ namespace EFCorePeliculas
                 .HasMaxLength(150)
                 .IsRequired();
 
-            modelBuilder.Entity<Actor>().Property(prop => prop.FechaNacimiento)
-                .HasColumnType("date");
-
             modelBuilder.Entity<Cine>().Property(prop => prop.Nombre)
                 .HasMaxLength(150)
                 .IsRequired();
@@ -41,21 +43,12 @@ namespace EFCorePeliculas
                 .HasMaxLength(250)
                 .IsRequired();
 
-            modelBuilder.Entity<Pelicula>().Property(prop => prop.FechaEstreno)
-                .HasColumnType("date");
-
             modelBuilder.Entity<Pelicula>().Property(prop => prop.PosterURL)
                 .HasMaxLength(500)
                 .IsUnicode(false);
 
             modelBuilder.Entity<CineOferta>().Property(prop => prop.PorcentajeDescuento)
                 .HasPrecision(precision: 5, scale: 2);
-
-            modelBuilder.Entity<CineOferta>().Property(prop => prop.FechaInicio)
-                .HasColumnType("date");
-
-            modelBuilder.Entity<CineOferta>().Property(prop => prop.FechaFin)
-                .HasColumnType("date");
 
             modelBuilder.Entity<PeliculaActor>().HasKey(prop => 
                 new { prop.PeliculaId, prop.ActorId });

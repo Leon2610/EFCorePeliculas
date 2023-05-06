@@ -13,8 +13,8 @@ using NetTopologySuite.Geometries;
 namespace EFCorePeliculas.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230506023647_PeliculaSalaDeCine")]
-    partial class PeliculaSalaDeCine
+    [Migration("20230506025221_Inicial")]
+    partial class Inicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -147,6 +147,28 @@ namespace EFCorePeliculas.Migrations
                     b.ToTable("Peliculas");
                 });
 
+            modelBuilder.Entity("EFCorePeliculas.Entidades.PeliculaActor", b =>
+                {
+                    b.Property<int>("PeliculaId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ActorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Orden")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Personaje")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.HasKey("PeliculaId", "ActorId");
+
+                    b.HasIndex("ActorId");
+
+                    b.ToTable("PeliculaActores");
+                });
+
             modelBuilder.Entity("EFCorePeliculas.Entidades.SalaDeCine", b =>
                 {
                     b.Property<int>("Id")
@@ -213,6 +235,25 @@ namespace EFCorePeliculas.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("EFCorePeliculas.Entidades.PeliculaActor", b =>
+                {
+                    b.HasOne("EFCorePeliculas.Entidades.Actor", "Actor")
+                        .WithMany("PeliculaActores")
+                        .HasForeignKey("ActorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EFCorePeliculas.Entidades.Pelicula", "Pelicula")
+                        .WithMany("PeliculaActores")
+                        .HasForeignKey("PeliculaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Actor");
+
+                    b.Navigation("Pelicula");
+                });
+
             modelBuilder.Entity("EFCorePeliculas.Entidades.SalaDeCine", b =>
                 {
                     b.HasOne("EFCorePeliculas.Entidades.Cine", "Cine")
@@ -254,11 +295,21 @@ namespace EFCorePeliculas.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("EFCorePeliculas.Entidades.Actor", b =>
+                {
+                    b.Navigation("PeliculaActores");
+                });
+
             modelBuilder.Entity("EFCorePeliculas.Entidades.Cine", b =>
                 {
                     b.Navigation("CineOferta");
 
                     b.Navigation("SalaDeCines");
+                });
+
+            modelBuilder.Entity("EFCorePeliculas.Entidades.Pelicula", b =>
+                {
+                    b.Navigation("PeliculaActores");
                 });
 #pragma warning restore 612, 618
         }
