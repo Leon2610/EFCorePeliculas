@@ -1,5 +1,6 @@
 ﻿using EFCorePeliculas.Entidades;
 using EFCorePeliculas.Entidades.Configuraciones;
+using EFCorePeliculas.Entidades.Seeding;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
@@ -22,6 +23,7 @@ namespace EFCorePeliculas
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            SeedingModuloConsulta.Seed(modelBuilder);
         }
 
         public DbSet<Genero> Generos { get; set; }
