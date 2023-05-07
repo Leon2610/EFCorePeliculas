@@ -18,7 +18,7 @@ namespace EFCorePeliculas.Controllers
         [HttpGet]
         public async Task<IEnumerable<Genero>> Get()
         {
-            return await context.Generos.ToListAsync();
+            return await context.Generos.OrderBy(g => g.Nombre).ToListAsync();
         }
 
         [HttpGet("{id:int}")]
@@ -64,9 +64,11 @@ namespace EFCorePeliculas.Controllers
             //    ).ToListAsync();
 
             // Filtrar segun el parametro
-            return await context.Generos.Where(
-                g => g.Nombre.Contains(nombre)
-                ).ToListAsync();
+            return await context.Generos
+                .Where( g => g.Nombre.Contains(nombre))
+                .ToListAsync();
+                //.OrderByDescending(g => g.Nombre).ToListAsync();
+
         }
     }
 }
