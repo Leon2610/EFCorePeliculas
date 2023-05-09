@@ -16,9 +16,16 @@ namespace EFCorePeliculas.Servicios
 
             CreateMap<Genero, GeneroDTO>();
 
+            //Sin projectTo
             CreateMap<Pelicula, PeliculaDTO>()
                 .ForMember(dto => dto.Cines, ent => ent.MapFrom(prop => prop.SalaDeCines.Select(s => s.Cine)))
                 .ForMember(dto => dto.Actores, ent => ent.MapFrom(prop => prop.PeliculaActores.Select(pa => pa.Actor)));
+
+            //Con projectTo
+            //CreateMap<Pelicula, PeliculaDTO>()
+            //    .ForMember(dto => dto.Generos, ent => ent.MapFrom(prop => prop.Generos.OrderByDescending(g => g.Nombre)))
+            //    .ForMember(dto => dto.Cines, ent => ent.MapFrom(prop => prop.SalaDeCines.Select(s => s.Cine)))
+            //    .ForMember(dto => dto.Actores, ent => ent.MapFrom(prop => prop.PeliculaActores.Select(pa => pa.Actor)));
         }
     }
 }
