@@ -1,4 +1,6 @@
-﻿using EFCorePeliculas.Entidades;
+﻿using AutoMapper;
+using EFCorePeliculas.DTOs;
+using EFCorePeliculas.Entidades;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,17 +11,23 @@ namespace EFCorePeliculas.Controllers
     public class PeliculasController : ControllerBase
     {
         private readonly ApplicationDbContext context;
+        private readonly IMapper mapper;
 
-        public PeliculasController(ApplicationDbContext context)
+        public PeliculasController(ApplicationDbContext context, IMapper mapper)
         {
             this.context = context;
+            this.mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<ActionResult<Pelicula>> Get(int id)
+        public async Task<ActionResult<PeliculaDTO>> Get(int id)
         {
             var pelicula = await context.Peliculas
                 .Include(p => p.Generos)
+                .Include(p => p.SalaDeCines)
+                    .ThenInclude(s => s.Cine)
+                .Include(p => p.PeliculaActores)
+                    .ThenInclude(pa => pa.Actor)
                 .FirstOrDefaultAsync(p => p.Id == id);
 
             if (pelicula is null)
@@ -27,7 +35,11 @@ namespace EFCorePeliculas.Controllers
                 return NotFound();
             }
 
-            return pelicula;
+            var peliculaDTO = mapper.Map<PeliculaDTO>(pelicula);
+
+            peliculaDTO.Cines = peliculaDTO.Cines.DistinctBy(x => x.Id).ToList();
+
+            return peliculaDTO;
         }
     }
 }
