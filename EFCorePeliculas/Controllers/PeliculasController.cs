@@ -59,5 +59,25 @@ namespace EFCorePeliculas.Controllers
 
             return pelicula;
         }
+
+        [HttpGet("cargadoselectivo/{id:int}")]
+        public async Task<ActionResult> GetSelectivo(int id)
+        {
+            var pelicula = await context.Peliculas.Select(p => new
+            {
+                Id = p.Id,
+                Titulo = p.Titulo,
+                Generos = p.Generos.OrderByDescending(g => g.Nombre).Select(g => g.Nombre).ToList(),
+                CantidadActores = p.PeliculaActores.Count(),
+                CantidadCines = p.SalaDeCines.Select(s => s.CineId).Distinct().Count(),
+            }).FirstOrDefaultAsync(p => p.Id == id);
+
+            if (pelicula is null)
+            {
+                return NotFound();
+            }
+
+            return Ok(pelicula);
+        }
     }
 }
