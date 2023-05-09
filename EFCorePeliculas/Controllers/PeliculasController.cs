@@ -19,14 +19,14 @@ namespace EFCorePeliculas.Controllers
             this.mapper = mapper;
         }
 
-        [HttpGet]
+        [HttpGet("{id:int}")]
         public async Task<ActionResult<PeliculaDTO>> Get(int id)
         {
             var pelicula = await context.Peliculas
-                .Include(p => p.Generos)
+                .Include(p => p.Generos.OrderByDescending(g => g.Nombre))
                 .Include(p => p.SalaDeCines)
                     .ThenInclude(s => s.Cine)
-                .Include(p => p.PeliculaActores)
+                .Include(p => p.PeliculaActores.Where(pa => pa.Actor.FechaNacimiento.Value.Year >= 1980))
                     .ThenInclude(pa => pa.Actor)
                 .FirstOrDefaultAsync(p => p.Id == id);
 
