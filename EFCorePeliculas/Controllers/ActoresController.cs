@@ -34,5 +34,20 @@ namespace EFCorePeliculas.Controllers
             await context.SaveChangesAsync();
             return Ok();
         }
+
+        [HttpPut("{id:int}")]
+        public async Task<ActionResult> Put(ActorCreacionDTO actorCreacionDTO, int id)
+        {
+            var actorDB = await context.Actores.AsTracking().FirstOrDefaultAsync(a => a.Id == id);
+
+            if (actorDB is null)
+            {
+                return NotFound();
+            }
+
+            actorDB = mapper.Map(actorCreacionDTO, actorDB);
+            await context.SaveChangesAsync();
+            return Ok();
+        }
     }
 }
