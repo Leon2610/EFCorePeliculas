@@ -34,52 +34,18 @@ namespace EFCorePeliculas.Controllers
             return genero;
         }
 
-        [HttpGet("primer")]
-        public async Task<ActionResult<Genero>> Primer()
+        [HttpPost]
+        public async Task<ActionResult> Post(Genero genero)
         {
-            //De esta forma se trae el primer valor que encuentre en la tabla
-            //return await context.Generos.FirstAsync();
+            var estatus1 = context.Entry(genero).State;
+            context.Add(genero);
+            var estatus2 = context.Entry(genero).State;
 
-            //Forma para traer el primer valor que empiece con la letra "C"
-            //return await context.Generos.FirstAsync(g => g.Nombre.StartsWith("C"));
+            await context.SaveChangesAsync();
+            var estatus3 = context.Entry(genero).State;
 
-            // FirstOrDefault hace que traiga el primero que especifiquemos y si no lo encuentra retorna nulo
-            var genero = await context.Generos.FirstOrDefaultAsync(g => g.Nombre.StartsWith("C"));
-
-            if (genero is null)
-            {
-                return NotFound();
-            }
-
-            return genero;
+            return Ok();
         }
 
-        [HttpGet("filtrar")]
-        public async Task<IEnumerable<Genero>> Filtrar(string nombre)
-        {
-            //Forma 1 sin necesidad de parametro
-
-            //return await context.Generos.Where(
-            //    g => g.Nombre.StartsWith("C") || g.Nombre.StartsWith("A")
-            //    ).ToListAsync();
-
-            // Filtrar segun el parametro
-            return await context.Generos
-                .Where( g => g.Nombre.Contains(nombre))
-                .ToListAsync();
-                //.OrderByDescending(g => g.Nombre).ToListAsync();
-        }
-
-        [HttpGet("paginacion")]
-        public async Task<ActionResult<IEnumerable<Genero>>> GetPaginacion(int pagina = 1)
-        {
-            var cantidadRegistrosPorPagina = 2;
-            var generos = await context.Generos
-                .Skip((pagina - 1) * cantidadRegistrosPorPagina)
-                .Take(cantidadRegistrosPorPagina)
-                .ToListAsync();
-
-            return generos;
-        }
     }
 }
