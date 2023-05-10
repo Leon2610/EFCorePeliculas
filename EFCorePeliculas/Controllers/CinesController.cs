@@ -85,5 +85,15 @@ namespace EFCorePeliculas.Controllers
             await context.SaveChangesAsync();
             return Ok();
         }
+
+        [HttpPost("conDTO")]
+        public async Task<ActionResult> Post(CineCreacionDTO cineCreacionDTO)
+        {
+            var cine = mapper.Map<Cine>(cineCreacionDTO);
+            context.Add(cine);
+            await context.SaveChangesAsync();
+            return Ok();
+        }
+
     }
 }
