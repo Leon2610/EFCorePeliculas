@@ -18,7 +18,7 @@ namespace EFCorePeliculas.Controllers
         [HttpGet]
         public async Task<IEnumerable<Genero>> Get()
         {
-            return await context.Generos.OrderBy(g => g.Nombre).ToListAsync();
+            return await context.Generos.Where(g => !g.EstaBorrado).OrderBy(g => g.Nombre).ToListAsync();
         }
 
         [HttpGet("{id:int}")]
@@ -81,6 +81,21 @@ namespace EFCorePeliculas.Controllers
             }
 
             context.Remove(genero);
+            await context.SaveChangesAsync();
+            return Ok();
+        }
+
+        [HttpDelete("borradoSuave/{id:int}")]
+        public async Task<ActionResult> DeleteSuave(int id)
+        {
+            var genero = await context.Generos.AsTracking().FirstOrDefaultAsync(g => g.Identificador == id);
+
+            if (genero is null)
+            {
+                return NotFound();
+            }
+
+            genero.EstaBorrado = true;
             await context.SaveChangesAsync();
             return Ok();
         }
