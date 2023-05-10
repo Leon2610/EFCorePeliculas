@@ -9,12 +9,12 @@ namespace EFCorePeliculas.Controllers
 {
     [ApiController]
     [Route("api/actores")]
-    public class AutoresController : ControllerBase
+    public class ActoresController : ControllerBase
     {
         private readonly ApplicationDbContext context;
         private readonly IMapper mapper;
 
-        public AutoresController(ApplicationDbContext context, IMapper mapper)
+        public ActoresController(ApplicationDbContext context, IMapper mapper)
         {
             this.context = context;
             this.mapper = mapper;
@@ -24,6 +24,15 @@ namespace EFCorePeliculas.Controllers
         public async Task<IEnumerable<ActorDTO>> Get()
         {
             return await context.Actores.ProjectTo<ActorDTO>(mapper.ConfigurationProvider).ToListAsync();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Post(ActorCreacionDTO actorCreacionDTO)
+        {
+            var actor = mapper.Map<Actor>(actorCreacionDTO);
+            context.Add(actor);
+            await context.SaveChangesAsync();
+            return Ok();
         }
     }
 }

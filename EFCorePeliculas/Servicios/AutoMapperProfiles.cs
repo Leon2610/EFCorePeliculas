@@ -43,6 +43,8 @@ namespace EFCorePeliculas.Servicios
                 .ForMember(ent => ent.SalaDeCines, dto => dto.MapFrom(campo => campo.SalaDeCines.Select(id => new SalaDeCine() { Id = id })));
 
             CreateMap<PeliculaActorCreacionDTO, PeliculaDTO>();
+
+            CreateMap<ActorCreacionDTO, Actor>();
         }
     }
 }
