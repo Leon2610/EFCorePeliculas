@@ -1,8 +1,10 @@
 ﻿using EFCorePeliculas.Entidades;
 using EFCorePeliculas.Entidades.Configuraciones;
 using EFCorePeliculas.Entidades.Seeding;
+using EFCorePeliculas.Entidades.SinLlaves;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using System.Reflection.Metadata.Ecma335;
 
 namespace EFCorePeliculas
 {
@@ -27,6 +29,8 @@ namespace EFCorePeliculas
 
             //modelBuilder.Entity<Log>().Property(l => l.Id).ValueGeneratedNever();
             //modelBuilder.Ignore<Direccion>();
+
+            modelBuilder.Entity<CineSinUbicacion>().HasNoKey().ToSqlQuery("Select Id, Nombre FROM Cines").ToView(null);
         }
 
         public DbSet<Genero> Generos { get; set; }
@@ -37,5 +41,6 @@ namespace EFCorePeliculas
         public DbSet<SalaDeCine> SalasDeCine { get; set; }
         public DbSet<PeliculaActor> PeliculaActores { get; set; }
         public DbSet<Log> Logs { get; set; }
+        public DbSet<CineSinUbicacion> CinesSinUbicacion { get; set; }
     }
 }
