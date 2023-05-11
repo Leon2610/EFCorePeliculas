@@ -20,20 +20,27 @@ namespace EFCorePeliculas.Controllers
         {
             context.Logs.Add(new Log { Id = Guid.NewGuid(), Mensaje = "Ejecutando el metodo GenerosController.Get" });
             await context.SaveChangesAsync();
-            return await context.Generos.OrderBy(g => g.Nombre).ToListAsync();
+            return await context.Generos.OrderByDescending(g => EF.Property<DateTime>(g, "FechaCreacion")).ToListAsync();
         }
 
         [HttpGet("{id:int}")]
         public async Task<ActionResult<Genero>> Get(int id)
         {
-            var genero = await context.Generos.FirstOrDefaultAsync(g => g.Identificador == id);
+            var genero = await context.Generos.AsTracking().FirstOrDefaultAsync(g => g.Identificador == id);
 
             if (genero == null)
             {
                 return NotFound();
             }
 
-            return genero;
+            var fechaCreacion = context.Entry(genero).Property<DateTime>("FechaCreacion").CurrentValue;
+
+            return Ok(new
+            {
+                Id = genero.Identificador,
+                NoContent = genero.Nombre,
+                fechaCreacion
+            });
         }
 
         [HttpPost]
