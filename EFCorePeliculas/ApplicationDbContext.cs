@@ -26,6 +26,7 @@ namespace EFCorePeliculas
             SeedingModuloConsulta.Seed(modelBuilder);
 
             //modelBuilder.Entity<Log>().Property(l => l.Id).ValueGeneratedNever();
+            //modelBuilder.Ignore<Direccion>();
         }
 
         public DbSet<Genero> Generos { get; set; }
