@@ -24,6 +24,8 @@ namespace EFCorePeliculas
 
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
             SeedingModuloConsulta.Seed(modelBuilder);
+
+            //modelBuilder.Entity<Log>().Property(l => l.Id).ValueGeneratedNever();
         }
 
         public DbSet<Genero> Generos { get; set; }
@@ -33,5 +35,6 @@ namespace EFCorePeliculas
         public DbSet<CineOferta> CineOfertas { get; set; }
         public DbSet<SalaDeCine> SalasDeCine { get; set; }
         public DbSet<PeliculaActor> PeliculaActores { get; set; }
+        public DbSet<Log> Logs { get; set; }
     }
 }
