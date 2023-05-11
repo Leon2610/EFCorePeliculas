@@ -11,7 +11,8 @@ namespace EFCorePeliculas.Entidades.Configuraciones
                 .HasPrecision(precision: 9, scale: 2);
 
             builder.Property(prop => prop.TipoSalaDeCine)
-                .HasDefaultValue(TipoSalaDeCine.DosDimensiones);
+                .HasDefaultValue(TipoSalaDeCine.DosDimensiones)
+                .HasConversion<string>();
         }
     }
 }
