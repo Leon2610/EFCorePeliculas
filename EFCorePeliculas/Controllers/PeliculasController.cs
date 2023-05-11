@@ -2,6 +2,7 @@
 using AutoMapper.QueryableExtensions;
 using EFCorePeliculas.DTOs;
 using EFCorePeliculas.Entidades;
+using EFCorePeliculas.Entidades.SinLlaves;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,6 +19,12 @@ namespace EFCorePeliculas.Controllers
         {
             this.context = context;
             this.mapper = mapper;
+        }
+
+        [HttpGet("PeliculasConConteos")]
+        public async Task<ActionResult<IEnumerable<PeliculasConteos>>> GetPeliculasConteos()
+        {
+            return await context.Set<PeliculasConteos>().ToListAsync();
         }
 
         [HttpGet("{id:int}")]
