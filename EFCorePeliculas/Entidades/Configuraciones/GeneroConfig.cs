@@ -15,6 +15,8 @@ namespace EFCorePeliculas.Entidades.Configuraciones
                 .IsRequired();
 
             builder.HasQueryFilter(g => !g.EstaBorrado);
+
+            /*builder.HasIndex(t => t.Nombre).IsUnique()*/;
         }
     }
 }
