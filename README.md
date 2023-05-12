@@ -10,6 +10,13 @@ Este repositorio es de estudio personal de esta tecnología.
 - Add-Migration nombreMigración
 - Update-Database
 - Remove-Migration
+- Get-Help
+- Get-Migration
+- Drop-Database
+- Script-Migration
+
+### Base de datos Primero
+- Scaffold-DbContext
 
 ## Instalación EF C
 Esto se realiza agregando el paquete de este a través del administrador de paquetes Nuget.
